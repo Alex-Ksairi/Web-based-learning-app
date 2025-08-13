@@ -1,0 +1,38 @@
+%% UML Use-Case Diagramm of a web-based Learning-App
+graph TD
+    subgraph "Actors"
+        Admin
+        User
+    end
+
+    subgraph "Web-based Learning-App"
+        UC_Add([Add questions])
+        UC_Edit([Edit questions])
+        UC_Delete([Delete questions])
+        UC_ManageUsers([Manage users])
+        UC_View([Show questions])
+        UC_Answer([Answer questions])
+        UC_Results([Show results])
+        UC_Register([Register])
+        UC_Login([Login])
+    end
+
+    Admin --> UC_Add
+    Admin --> UC_Edit
+    Admin --> UC_Delete
+    Admin --> UC_ManageUsers
+    Admin --> UC_View
+    Admin --> UC_Answer
+    Admin --> UC_Results
+    Admin --> UC_Register
+    Admin --> UC_Login
+
+    User --> UC_View
+    User --> UC_Answer
+    User --> UC_Results
+    User --> UC_Register
+    User --> UC_Login
+
+    UC_Answer -->|"<<includes>>"| UC_View
+    UC_Results -->|"<<includes>>"| UC_View
+    UC_Register -->|"<<extends>>"| UC_Login
