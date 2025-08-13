@@ -1,0 +1,65 @@
+@use '../abstracts/colors' as c;
+
+/* 1. Remove all default margin, padding, borders */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 2. Set base font and smooth text rendering */
+html {
+  font-size: 16px; /* Easy rem calculation */
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.5;
+  color: c.$text-color;
+  background-color: c.$background-color;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 3. Remove list styles */
+ul, ol {
+  list-style: none;
+}
+
+/* 4. Remove link underlines and inherit color */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 5. Make images responsive */
+img, picture, video, canvas, svg {
+  max-width: 100%;
+  display: block;
+}
+
+/* 6. Form elements consistent */
+button, input, textarea, select {
+  font: inherit;
+  border: none;
+  background: none;
+}
+
+/* 7. Buttons clickable cursor */
+button {
+  cursor: pointer;
+}
+
+/* 8. Remove default table styles */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* 9. Global variables example (optional) */
+:root {
+  --primary-color: $primary-color;
+  --secondary-color: $secondary-color;
+  --font-size-base: 1rem;
+}
