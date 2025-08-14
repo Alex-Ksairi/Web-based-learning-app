@@ -1,0 +1,41 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/colors' as c;
+
+html {
+  font-size: 100%; // 16px by default
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: v.$font-size-base;
+  line-height: 1.5;
+  color: c.$text-color;
+}
+
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+// Links
+a {
+  color: c.$primary-color;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

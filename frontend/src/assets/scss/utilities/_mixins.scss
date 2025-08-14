@@ -11,3 +11,16 @@
   margin: 0 auto;
   padding: 0 $spacing-md;
 }
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == small {
+    @media (max-width: 600px) { @content; }
+  }
+  @else if $breakpoint == medium {
+    @media (max-width: 900px) { @content; }
+  }
+}
+
+@mixin box-shadow($color: rgba(0, 0, 0, 0.1)) {
+  box-shadow: 0 4px 6px $color;
+}
