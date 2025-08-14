@@ -49,5 +49,11 @@
                 background: #0056b3;
             }
         }
+
+        .switch-form {
+            margin-top: 20px;
+            @include mix.flex-center(row);
+            gap: 10px;
+        }
     }
 }

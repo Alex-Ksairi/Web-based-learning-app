@@ -19,6 +19,9 @@ function Register() {
       fields={fields}
       buttonText="Sign Up"
       onSubmit={handleSubmit}
+      switchText="Already have an account?"
+      link="/login"
+      linkText="login"
     />
   );
 }

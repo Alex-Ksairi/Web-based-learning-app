@@ -17,6 +17,9 @@ function Login() {
       fields={fields}
       buttonText="Login"
       onSubmit={handleSubmit}
+      switchText="New here? "
+      link="/register"
+      linkText="Create an account"
     />
   );
 }
