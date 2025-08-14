@@ -1,10 +1,23 @@
-import '../assets/scss/pages/_login.scss'; // optional, if you want page-specific styles
+import '../assets/scss/pages/_login.scss';
+import Form from '../components/Form';
 
 function Login() {
+  const fields = [
+    { name: 'email', label: 'Email*', type: 'email', placeholder: '', required: true },
+    { name: 'password', label: 'Password*', type: 'password', placeholder: '', required: true }
+  ];
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
-    <div className="login">
-      <h1>Welcome to Your Login</h1>
-    </div>
+    <Form
+      title="Login"
+      fields={fields}
+      buttonText="Login"
+      onSubmit={handleSubmit}
+    />
   );
 }
 

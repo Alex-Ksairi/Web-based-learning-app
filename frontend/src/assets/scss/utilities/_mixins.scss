@@ -1,4 +1,6 @@
-@mixin flex-center($direction: row) {
+@use "../abstracts/variables" as v;
+
+@mixin flex-center($direction: column) {
   display: flex;
   flex-direction: $direction;
   justify-content: center;
@@ -8,8 +10,8 @@
 @mixin container {
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 $spacing-md;
+  height: 100dvh;
+  padding: 0 v.$spacing-md;
 }
 
 @mixin respond($breakpoint) {
