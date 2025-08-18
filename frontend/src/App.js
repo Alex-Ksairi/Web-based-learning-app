@@ -5,6 +5,7 @@ import Register from './pages/Register.jsx';
 import Login from './pages/Login.jsx';
 import EditProfile from './pages/EditProfile.jsx';
 import Dashboard from './pages/Dashboard.jsx';
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 const DynamicTitleUpdater = () => {
   const location = useLocation();
@@ -42,10 +43,13 @@ function App() {
       <DynamicTitleUpdater />
 
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        {/* public routes */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/edit-profile" element={<EditProfile />} />
+
+        {/* protected routes */}
+        <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/edit-profile" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
       </Routes>
     </div>
   );
