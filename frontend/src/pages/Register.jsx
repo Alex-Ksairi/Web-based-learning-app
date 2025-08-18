@@ -22,6 +22,8 @@ function Register() {
       switchText="Already have an account?"
       link="/login"
       linkText="login"
+      successMessage="Your registration data was successfully submitted!"
+      errorMessage="Something went terribly wrong, registration couldn't be submitted!"
     />
   );
 }

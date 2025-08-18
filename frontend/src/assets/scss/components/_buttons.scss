@@ -1,0 +1,16 @@
+@use "../abstracts/colors" as c;
+@use "../abstracts/variables" as v;
+
+@mixin primary_button {
+    width: 100%;
+    padding: 0.75rem;
+    background: c.$primary-color;
+    color: c.$background-color;
+    font-size: v.$font-size-base;
+    border: none;
+    border-radius: 4px;
+
+    &:hover {
+        background: c.$hover;
+    }
+}

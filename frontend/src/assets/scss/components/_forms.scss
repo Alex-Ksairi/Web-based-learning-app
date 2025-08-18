@@ -2,6 +2,9 @@
 @use "../abstracts/variables" as v;
 @use "../base/typography" as t;
 @use "../utilities/mixins" as mix;
+@use "../components/buttons" as button;
+@use "../components/success_message" as success;
+@use "../components/error_message" as error;
 
 .main-container {
     @include mix.flex-center();
@@ -37,23 +40,21 @@
         }
 
         button {
-            width: 100%;
-            padding: 0.75rem;
-            background: c.$primary-color;
-            color: c.$background-color;
-            font-size: v.$font-size-base;
-            border: none;
-            border-radius: 4px;
-
-            &:hover {
-                background: #0056b3;
-            }
+            @include button.primary_button;
         }
 
         .switch-form {
             margin-top: 20px;
             @include mix.flex-center(row);
             gap: 10px;
+        }
+
+        .success-message {
+            @include success.success_message_block;
+        }
+
+        .error-message {
+            @include error.error_message_block;
         }
     }
 }

@@ -26,3 +26,15 @@
 @mixin box-shadow($color: rgba(0, 0, 0, 0.1)) {
   box-shadow: 0 4px 6px $color;
 }
+
+@mixin message-block($background-color: white, $color: black) {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 40px;
+  @include flex-center(row);
+  background: $background-color;
+  color: $color;
+  border: 1px solid $color;
+  border-radius: 4px;
+  display: none;
+}

@@ -38,7 +38,6 @@ class Database {
 }
 
 // --- TEMPORARY TEST BLOCK ---
-// You can uncomment this section to test your connection
 $testDb = new Database();
 $testConnection = $testDb->getConnection();
 

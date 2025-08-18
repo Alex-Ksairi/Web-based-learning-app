@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import '../assets/scss/components/_forms.scss';
 
-function Form({ title, fields, buttonText, onSubmit, switchText, link, linkText }) {
+function Form({ title, fields, buttonText, onSubmit, switchText, link, linkText, successMessage, errorMessage }) {
   return (
     <div className="main-container">
         <form className="app-form" onSubmit={onSubmit}>
@@ -26,6 +26,12 @@ function Form({ title, fields, buttonText, onSubmit, switchText, link, linkText 
           <p>{switchText}</p>
           <a href={link}>{linkText}</a>
         </div>
+        <div className="success-message">
+          <p>{successMessage}</p>
+        </div>
+        <div className="error-message">
+          <p>{errorMessage}</p>
+        </div>
         </form>
     </div>
   );
@@ -47,6 +53,8 @@ Form.propTypes = {
   switchText: PropTypes.string,
   link: PropTypes.string,
   linkText: PropTypes.string,
+  successMessage: PropTypes.string,
+  errorMessage: PropTypes.string,
 };
 
 export default Form;

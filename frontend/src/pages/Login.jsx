@@ -20,6 +20,8 @@ function Login() {
       switchText="New here? "
       link="/register"
       linkText="Create an account"
+      successMessage="Login was successfully submitted!"
+      errorMessage="Something went terribly wrong, login couldn't be submitted!"
     />
   );
 }

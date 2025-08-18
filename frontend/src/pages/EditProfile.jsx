@@ -23,6 +23,8 @@ function EditProfile() {
       fields={fields}
       buttonText="Save changes"
       onSubmit={handleSubmit}
+      successMessage="Your profile was successfully saved!"
+      errorMessage="Something went terribly wrong!"
     />
   );
 }

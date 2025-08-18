@@ -1,0 +1,6 @@
+@use "../abstracts/colors" as c;
+@use "../utilities/mixins" as mix;
+
+@mixin error_message_block {
+    @include mix.message-block(c.$light_red_background, c.$error);
+}

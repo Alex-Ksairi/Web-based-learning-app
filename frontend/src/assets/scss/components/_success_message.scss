@@ -1,0 +1,6 @@
+@use "../abstracts/colors" as c;
+@use "../utilities/mixins" as mix;
+
+@mixin success_message_block {
+    @include mix.message-block(c.$light_green_background, c.$primary-color);
+}
