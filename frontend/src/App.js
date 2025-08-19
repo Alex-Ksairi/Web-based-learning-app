@@ -49,7 +49,7 @@ function App() {
 
         {/* protected routes */}
         <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-        <Route path="/edit-profile" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
+        <Route path="/edit-profile" element={<EditProfile />} />
       </Routes>
     </div>
   );

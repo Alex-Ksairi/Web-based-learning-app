@@ -37,25 +37,4 @@ class Database {
     }
 }
 
-// --- TEMPORARY TEST BLOCK ---
-$testDb = new Database();
-$testConnection = $testDb->getConnection();
-
-if ($testConnection) {
-    echo "Database connection successful! 🎉";
-    try {
-        $stmt = $testConnection->query("SELECT 1");
-        if ($stmt) {
-            echo "<br>Simple query executed successfully.";
-        } else {
-            echo "<br>Simple query failed.";
-        }
-    } catch (PDOException $e) {
-        echo "<br>Simple query error: " . $e->getMessage();
-    }
-} else {
-    echo "Database connection failed. Please check your credentials and database server status.";
-}
-// --- END TEMPORARY TEST BLOCK ---
-
 ?>

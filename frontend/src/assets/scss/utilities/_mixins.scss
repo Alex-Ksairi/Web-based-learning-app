@@ -30,11 +30,10 @@
 @mixin message-block($background-color: white, $color: black) {
   width: 100%;
   padding: 0.75rem;
-  margin-top: 40px;
+  margin: 40px 0 40px 0;
   @include flex-center(row);
   background: $background-color;
   color: $color;
   border: 1px solid $color;
   border-radius: 4px;
-  display: none;
 }
