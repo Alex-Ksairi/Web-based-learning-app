@@ -19,7 +19,6 @@ class User {
         $query = "INSERT INTO " . $this->table_name . "
                   SET name=:name, surname=:surname, email=:email, password_hash=:password_hash, address_id=:address_id";
 
-        // Prepare query
         $stmt = $this->conn->prepare($query);
 
         // Sanitize data
