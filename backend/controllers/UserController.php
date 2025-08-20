@@ -66,7 +66,7 @@ class UserController {
         
         if ($user_data && password_verify($data['password'], $user_data['password_hash'])) {
             http_response_code(200);
-            return ['success' => true, 'message' => 'Login successful!', 'user' => ['id' => $user_data['id'], 'name' => $user_data['name'], 'email' => $user_data['email']], 'token' => 'dummy_jwt_token'];
+            return ['success' => true, 'message' => 'Login successful!', 'user' => ['id' => $user_data['id'], 'name' => $user_data['name'], 'email' => $user_data['email'], 'role' => $user_data['role']], 'token' => 'dummy_jwt_token'];
         } else {
             http_response_code(401);
             return ['success' => false, 'message' => 'Invalid email or password.'];

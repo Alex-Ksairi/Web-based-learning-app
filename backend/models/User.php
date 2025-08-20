@@ -9,6 +9,7 @@ class User {
     public $email;
     public $password_hash;
     public $address_id;
+    public $role;
 
     public function __construct($db) {
         $this->conn = $db;
@@ -17,7 +18,7 @@ class User {
     // Create a new user record
     public function create() {
         $query = "INSERT INTO " . $this->table_name . "
-                  SET name=:name, surname=:surname, email=:email, password_hash=:password_hash, address_id=:address_id";
+                  SET name=:name, surname=:surname, email=:email, role=:role, password_hash=:password_hash, address_id=:address_id";
 
         $stmt = $this->conn->prepare($query);
 
@@ -26,12 +27,14 @@ class User {
         $this->surname = htmlspecialchars(strip_tags($this->surname));
         $this->email = htmlspecialchars(strip_tags($this->email));
         $this->password_hash = htmlspecialchars(strip_tags($this->password_hash));
+        $this->role = htmlspecialchars(strip_tags($this->role));
         $this->address_id = htmlspecialchars(strip_tags($this->address_id));
 
         // Bind values
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":surname", $this->surname);
         $stmt->bindParam(":email", $this->email);
+        $stmt->bindParam(":role", $this->role);
         $stmt->bindParam(":password_hash", $this->password_hash);
         $stmt->bindParam(":address_id", $this->address_id);
 
@@ -55,7 +58,7 @@ class User {
 
     // Get user details by email for login
     public function getUserByEmail() {
-        $query = "SELECT id, name, surname, email, password_hash, address_id
+        $query = "SELECT id, name, surname, email, role, password_hash, address_id
                   FROM " . $this->table_name . "
                   WHERE email = ? LIMIT 0,1";
         $stmt = $this->conn->prepare($query);
@@ -67,7 +70,7 @@ class User {
 
     // Find user by ID
     public function findById($id) {
-        $query = "SELECT id, name, surname, email, password_hash, address_id
+        $query = "SELECT id, name, surname, email, password_hash, role, address_id
                   FROM " . $this->table_name . "
                   WHERE id = ? LIMIT 0,1";
         $stmt = $this->conn->prepare($query);

@@ -83,6 +83,7 @@ function Form({ title, fields, buttonText, onSubmit, switchText, link, linkText,
                             required={field.required}
                             value={formData[field.name] || ''}
                             onChange={handleChange}
+                            disabled={field.disabled}
                         />
                     </div>
                 ))}

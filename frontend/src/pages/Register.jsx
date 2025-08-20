@@ -59,7 +59,7 @@ function Register() {
             onSubmit={handleSubmit}
             switchText="Already have an account? "
             link="/login"
-            linkText="Login here"
+            linkText="Login"
         />
     );
 }

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Form from '../components/Form';
 import isEqual from 'lodash.isequal';
+import Header from '../components/Header';
+import '../assets/scss/pages/_dashboard.scss';
 
 function EditProfile() {
     const navigate = useNavigate();
@@ -26,7 +28,7 @@ function EditProfile() {
             try {
                 if (currentStep === 2 && tempAddressId) {
                     setAddressId(tempAddressId);
-                    //setInitialAddressData({});
+                    setInitialAddressData({});
                 } else if (loggedInUserId) {
                     const userResponse = await fetch(`${url}?action=getUserDetails&id=${loggedInUserId}`);
                     if (!userResponse.ok) throw new Error('Failed to fetch user details.');
@@ -49,7 +51,6 @@ function EditProfile() {
                                 }
                                 setAddressId(userAddressId);
                             } else {
-                                // console.warn("User has address_id but no address data found. User might need to create one.");
                                 if (!isEqual(initialAddressData, {})) {
                                     setInitialAddressData({});
                                 }
@@ -60,19 +61,17 @@ function EditProfile() {
                                 setInitialAddressData({});
                             }
                             setAddressId(null);
-                            // console.log("Logged-in user has no address linked. Will display empty address form or skip step 2.");
                         }
                     } else {
-                        // console.error("User details not found for logged in user:", userData.message);
                         navigate('/login', { replace: true });
+                        return;
                     }
                 } else {
-                    // console.warn("Access to EditProfile attempted without login or recent registration. Redirecting to login.");
                     navigate('/login', { replace: true });
                     return;
                 }
             } catch (error) {
-                // console.error('Error in EditProfile fetchData:', error);
+                console.error('Error in EditProfile fetchData:', error);
                 navigate('/login', { replace: true });
             } finally {
                 setLoading(false);
@@ -85,7 +84,7 @@ function EditProfile() {
     const profileFields = [
         { name: 'name', label: 'Name*', type: 'text', placeholder: '', required: true },
         { name: 'surname', label: 'Surname*', type: 'text', placeholder: '', required: true },
-        { name: 'email', label: 'Email*', type: 'email', placeholder: '', required: true },
+        { name: 'email', label: 'Email*', type: 'email', placeholder: '', required: true, disabled: true },
     ];
 
     const addressFields = [
@@ -96,8 +95,9 @@ function EditProfile() {
         { name: 'country', label: 'Country*', type: 'text', placeholder: '', required: true },
     ];
 
+    const allFields = [...profileFields, ...addressFields];
+
     const handleProfileSubmit = async (formData) => {
-        console.log("Submitting profile data:", formData);
         if (!initialProfileData.id) {
             return { success: false, message: 'User ID not found for profile update.' };
         }
@@ -110,7 +110,6 @@ function EditProfile() {
             const data = await response.json();
             return data;
         } catch (error) {
-            // console.error('Profile update error:', error);
             return { success: false, message: 'Something went wrong during profile update.' };
         }
     };
@@ -120,7 +119,6 @@ function EditProfile() {
             return { success: false, message: 'No address ID found. Cannot update without an ID.' };
         }
         
-        // console.log("Submitting address data for address_id:", addressId, formData);
         try {
             const response = await fetch(`${url}?action=updateAddress&id=${addressId}`, {
                 method: 'POST',
@@ -136,9 +134,75 @@ function EditProfile() {
             }
             return data;
         } catch (error) {
-            // console.error('Address update error:', error);
             return { success: false, message: 'Something went wrong during address update.' };
         }
+    };
+    
+    const handleCombinedSubmit = async (formData) => {
+        if (!initialProfileData.id) {
+            return { success: false, message: 'User ID not found for profile update.' };
+        }
+
+        const profileData = {
+            name: formData.name,
+            surname: formData.surname,
+            email: formData.email,
+        };
+        const addressData = {
+            street: formData.street,
+            house_number: formData.house_number,
+            city: formData.city,
+            postal_code: formData.postal_code,
+            country: formData.country,
+        };
+        
+        let profileUpdateSuccess = false;
+        let addressUpdateSuccess = false;
+
+        try {
+            const profileResponse = await fetch(`${url}?action=updateProfile&id=${initialProfileData.id}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(profileData),
+            });
+            const profileUpdateData = await profileResponse.json();
+            profileUpdateSuccess = profileUpdateData.success;
+            if (!profileUpdateSuccess) {
+                return { success: false, message: profileUpdateData.message || 'Something went wrong during profile update.' };
+            }
+        } catch (error) {
+            console.error('Profile update error:', error);
+            return { success: false, message: 'Something went wrong during profile update.' };
+        }
+
+        const userAddressId = initialProfileData.address_id || initialAddressData.id;
+        if (userAddressId) {
+            try {
+                const addressResponse = await fetch(`${url}?action=updateAddress&id=${userAddressId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(addressData),
+                });
+                const addressUpdateData = await addressResponse.json();
+                addressUpdateSuccess = addressUpdateData.success;
+                if (!addressUpdateSuccess) {
+                    return { success: false, message: addressUpdateData.message || 'Something went wrong during address update.' };
+                }
+            } catch (error) {
+                console.error('Address update error:', error);
+                return { success: false, message: 'Something went wrong during address update.' };
+            }
+        } else {
+            console.warn("No address ID found, skipping address update.");
+            addressUpdateSuccess = true;
+        }
+
+        if (profileUpdateSuccess && addressUpdateSuccess) {
+            navigate('/', { replace: true });
+            return { success: true, message: 'Profile and Address updated successfully!' };
+        }
+        
+        return { success: false, message: 'Update failed.' };
     };
 
     if (loading) {
@@ -148,7 +212,7 @@ function EditProfile() {
     if (step === 2) {
         return (
             <Form
-                title="Complete Your Profile: Address"
+                title="Complete your profile: Address"
                 fields={addressFields}
                 buttonText="Save Address"
                 onSubmit={handleAddressSubmit}
@@ -156,14 +220,22 @@ function EditProfile() {
             />
         );
     } else {
+        const combinedInitialData = { ...initialProfileData, ...initialAddressData };
+
         return (
-            <Form
-                title="Edit Your Profile"
-                fields={profileFields}
-                buttonText="Save Profile"
-                onSubmit={handleProfileSubmit}
-                initialData={initialProfileData}
-            />
+            <>
+                <div className="dashboard">
+                    <Header user={initialProfileData}/>
+                    <Form
+                        title="Edit your profile"
+                        fields={allFields}
+                        buttonText="Save Changes"
+                        onSubmit={handleCombinedSubmit}
+                        initialData={combinedInitialData}
+                    />
+                </div>
+            </>
+            
         );
     }
 }
