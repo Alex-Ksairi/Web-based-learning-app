@@ -1,4 +1,5 @@
 import { Router, Routes, Route, useLocation } from 'react-router-dom';
+import { QuestionsProvider } from './context/QuestionContext.jsx';
 import React from 'react';
 
 import Register from './pages/Register.jsx';
@@ -39,19 +40,21 @@ const DynamicTitleUpdater = () => {
 
 function App() {
   return (
-    <div>
-      <DynamicTitleUpdater />
+    <QuestionsProvider>
+      <div>
+        <DynamicTitleUpdater />
 
-      <Routes>
-        {/* public routes */}
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+        <Routes>
+          {/* public routes */}
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
 
-        {/* protected routes */}
-        <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-        <Route path="/edit-profile" element={<EditProfile />} />
-      </Routes>
-    </div>
+          {/* protected routes */}
+          <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/edit-profile" element={<EditProfile />} />
+        </Routes>
+      </div>
+    </QuestionsProvider>
   );
 };
 
