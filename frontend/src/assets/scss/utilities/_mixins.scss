@@ -1,9 +1,9 @@
 @use "../abstracts/variables" as v;
 
-@mixin flex-center($direction: column) {
+@mixin flex-center($direction: column, $justify-content: center) {
   display: flex;
   flex-direction: $direction;
-  justify-content: center;
+  justify-content: $justify-content;
   align-items: center;
 }
 

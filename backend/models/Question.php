@@ -22,7 +22,7 @@ class Question {
 
     // Get all questions
     public function readAll() {
-        $sql = "SELECT * FROM {$this->table} ORDER BY id DESC";
+        $sql = "SELECT * FROM {$this->table} ORDER BY id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
