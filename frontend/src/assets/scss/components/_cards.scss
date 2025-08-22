@@ -3,6 +3,8 @@
 @use "../abstracts/variables" as v;
 
 .cards-container {
+  @include mixin.flex-center(column);
+  gap: 40px;
   margin: 2rem 0;
 
   h2 {

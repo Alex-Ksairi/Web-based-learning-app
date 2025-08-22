@@ -18,12 +18,11 @@ class Answer {
     }
     
     // Get answer text by question id
-    public function getAnswerTextByQuestionId($question_id) {
-        $sql = "SELECT answer_text FROM {$this->table} WHERE question_id = ?";
+    public function getAnswerByQuestionId($question_id) {
+        $sql = "SELECT id, answer_text FROM {$this->table} WHERE question_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(1, $question_id);
         $stmt->execute();
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $row ? $row['answer_text'] : null;
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }

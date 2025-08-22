@@ -83,7 +83,8 @@ class QuestionController {
         
         foreach ($questions as $q) {
             $categoryName = $this->categoryModel->getCategoryNameById($q['category_id']);
-            $answerText = $this->answerModel->getAnswerTextByQuestionId($q['id']);
+            $answerRow = $this->answerModel->getAnswerByQuestionId($q['id']);
+            $answerText = $answerRow ? $answerRow['answer_text'] : null;
             $description = $this->categoryModel->getDescriptionById($q['category_id']);
             
             $output[] = [
